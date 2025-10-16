@@ -19,6 +19,12 @@ lista circular existente para encontrar o ponto (nearestNode) com a menor distâ
 A inserção é feita em tempo constante (O(1)) atualizando duas referências: o next do nearestNode passa a 
 apontar para o novo nó, e o next do novo nó passa a apontar para o antigo sucessor do nearestNode.
 
+Adicionalmente, para otimizar a busca pelo vizinho mais próximo, foi implementado um segundo método, insertNearestKd. 
+Nesta abordagem, todos os pontos já inseridos no tour são mantidos em uma estrutura de dados KdTree. Em vez de 
+percorrer a lista inteira (uma busca de complexidade O(N)), a KdTree é utilizada para encontrar o ponto mais próximo
+em tempo médio de O(log N). Isso reduz drasticamente o tempo de execução da heurística para grandes conjuntos de pontos, 
+mesmo que a lógica de atualização da lista encadeada permaneça a mesma após a identificação do vizinho.
+
 
 Q2. Explique por que é melhor usar uma lista encadeada circular em vez de um vetor.
 Considere a complexidade das operações de inserção e remoção de pontos.
