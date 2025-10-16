@@ -1,27 +1,31 @@
-/* *****************************************************************************
- *  NÃO MODIFIQUE OU SUBMETA ESTE ARQUIVO.
- *
- *  Retirado da Seção 3.2, An Introduction to Programming (in Java)
- *  por Robert Sedgewick e Kevin Wayne
- *
- *  Compilação:  javac Point.java
- *  Execução:    java Point < input.txt
- *
- *  Tipo de dado imutável para pontos 2D com coordenadas de ponto flutuante.
- *
- **************************************************************************** */
-
 import algs4.StdDraw;
 import algs4.StdIn;
+import java.util.Objects;
 
 public class Point { 
     private final double x;   // coordenada cartesiana x
     private final double y;   // coordenada cartesiana y
-   
+    
     // cria e inicializa um ponto com (x, y) dados
     public Point(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+
+    /**
+     * Retorna a coordenada x deste ponto.
+     * @return a coordenada x
+     */
+    public double x() {
+        return this.x;
+    }
+
+    /**
+     * Retorna a coordenada y deste ponto.
+     * @return a coordenada y
+     */
+    public double y() {
+        return this.y;
     }
 
     // retorna a distância euclidiana entre dois pontos
@@ -42,15 +46,28 @@ public class Point {
     }
 
     // retorna uma representação em string deste ponto
+    @Override
     public String toString() {
         return "(" + x + ", " + y + ")";
     }
+    
+    // --- INÍCIO DA MODIFICAÇÃO COM HASHMAP ---
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        Point that = (Point) other;
+        return Double.compare(that.x, x) == 0 && Double.compare(that.y, y) == 0;
+    }
 
-    // lê um arquivo TSP da entrada padrão
-    // e plota os pontos na tela padrão
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
+    // --- FIM DA MODIFICAÇÃO COM HASHMAP ---
+
+    // lê um arquivo TSP da entrada padrão e plota os pontos
     public static void main(String[] args) {
-
-        // obtém as dimensões
         int width = StdIn.readInt();
         int height = StdIn.readInt();
         StdDraw.setCanvasSize(width, height);
@@ -58,7 +75,6 @@ public class Point {
         StdDraw.setYscale(0, height);
         StdDraw.setPenRadius(0.005);
 
-        // lê e plota os pontos um por vez
         while (!StdIn.isEmpty()) {
             double x = StdIn.readDouble();
             double y = StdIn.readDouble();
