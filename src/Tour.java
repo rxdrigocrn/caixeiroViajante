@@ -71,7 +71,7 @@ public class Tour {
 
     // Método principal de inserção, que agora chama a versão com KdTree
     public void insertNearest(Point p) {
-        insertNearestKd(p);
+        insertNearestNaive(p);
     }
 
     // Implementação ingênua (mantida para referência)
